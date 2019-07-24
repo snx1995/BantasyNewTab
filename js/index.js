@@ -194,6 +194,10 @@
         const img = document.createElement("img");
         img.src = tag.href + "/favicon.ico";
 
+        img.onerror = () => {
+            img.src = "../img/1200x630wa.png";
+        }
+
         const span = document.createElement("span");
         span.innerText = tag.name;
 

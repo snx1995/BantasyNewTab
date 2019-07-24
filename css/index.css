@@ -177,8 +177,11 @@ html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: block;
+  display: inline-block;
   width: 100%;
+  white-space: nowrap;
+  text-overflow: clip;
+  overflow: hidden;
   text-align: center;
   opacity: 0;
   font-size: 3em;

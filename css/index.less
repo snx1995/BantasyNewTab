@@ -9,6 +9,7 @@ body, html {
     min-width: 500px;
     overflow: hidden;
     background: linear-gradient(45deg, #34495e, #2c3e50);
+    // background-color: #000;
 }
 @keyframes editing {
     0%, 100% {
@@ -179,8 +180,11 @@ body, html {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                display: block;
+                display: inline-block;
                 width: 100%;
+                white-space: nowrap;
+                text-overflow: clip;
+                overflow: hidden;
                 text-align: center;
                 opacity: 0;
                 font-size: 3em;
