@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+    "name": "bantasy new tab",
+    "version": "1.0.0",
+    "description": "bantasy new tab",
+
+    "permissions": [
+        "storage"
+    ],
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    }
+
+}

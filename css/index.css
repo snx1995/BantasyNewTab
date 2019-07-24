@@ -1,0 +1,259 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body,
+html {
+  width: 100%;
+  height: 100%;
+  min-width: 500px;
+  overflow: hidden;
+  background: linear-gradient(45deg, #34495e, #2c3e50);
+}
+@keyframes editing {
+  0%,
+  100% {
+    transform: rotate(5deg);
+  }
+  15% {
+    transform: rotate(-5deg);
+  }
+}
+.content {
+  padding-top: 50px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content .logo {
+  width: 400px;
+  height: auto;
+}
+.content .search {
+  margin-top: 20px;
+  width: 80%;
+  max-width: 800px;
+  height: 50px;
+  display: flex;
+  color: #fff;
+}
+.content .search input {
+  color: #fff;
+  background-color: transparent;
+  border-radius: 25px 0 0 25px;
+  text-indent: 2em;
+  display: block;
+  height: 50px;
+  flex-grow: 1;
+  border: 2px solid #3498db;
+  border-right: none;
+  outline: none;
+}
+.content .search .btn {
+  border-radius: 0 25px 25px 0;
+  width: 120px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border: 2px solid #3498db;
+  cursor: pointer;
+  position: relative;
+  font-size: 1.3em;
+}
+.content .search .btn .change {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #3498db;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+.content .search .btn .change:hover {
+  background: #3498db;
+}
+.content .search .btn span {
+  text-transform: capitalize;
+}
+.content .search .btn input {
+  display: none;
+}
+.content .search .btn input:checked + ul {
+  display: block;
+}
+.content .search .btn ul {
+  z-index: 100;
+  display: none;
+  list-style: none;
+  width: 100%;
+  position: relative;
+  background-color: #34495e;
+}
+.content .search .btn ul li:hover {
+  background-color: #3498db;
+}
+.content .tags {
+  color: #3498db;
+  width: 100%;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  text-decoration: none;
+}
+.content .tags.editing .tag:not(.add) {
+  animation: editing .2s infinite linear;
+}
+.content .tags.editing .container .del-btn {
+  display: inline-block;
+}
+.content .tags .container {
+  position: relative;
+}
+.content .tags .container .del-btn {
+  display: none;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #3498db;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+}
+.content .tags .container .del-btn:hover {
+  background: #3498db;
+}
+.content .tags .tag {
+  cursor: pointer;
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #3498db;
+  border-radius: 20px;
+  transition: border-width 0.3s;
+  position: relative;
+}
+.content .tags .tag:hover {
+  border-width: 8px;
+}
+.content .tags .tag:hover span {
+  opacity: 1;
+  font-size: 2em;
+}
+.content .tags .tag:hover img {
+  opacity: 0;
+}
+.content .tags .tag.add::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 60%;
+  height: 10px;
+  background-color: #3498db;
+}
+.content .tags .tag.add::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  height: 60%;
+  width: 10px;
+  background-color: #3498db;
+}
+.content .tags .tag span {
+  position: absolute;
+  color: #3498db;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  font-size: 3em;
+  transition: .3s;
+}
+.content .tags .tag img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  width: 100%;
+  transition: opacity .3s;
+}
+.modal {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.modal .overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.modal .modal-dialog {
+  border-radius: 20px;
+  overflow: hidden;
+  width: 500px;
+  height: 300px;
+  background-color: #fff;
+  padding-top: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.modal .modal-dialog h2 {
+  text-indent: 2em;
+}
+.modal .modal-dialog table {
+  margin: 0 auto;
+  font-size: 1.5em;
+}
+.modal .modal-dialog table input {
+  display: inline-block;
+  width: 300px;
+  height: 40px;
+  outline: none;
+}
+.modal .modal-dialog table td {
+  padding: 20px 0;
+}
+.modal .modal-dialog table .btn-group {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.modal .modal-dialog table .btn-group .btn {
+  height: 40px;
+  width: 80px;
+  margin-left: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.modal .modal-dialog table .btn-group .btn.confirm {
+  background: #3498db;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+}
+.modal .modal-dialog table .btn-group .btn.cancel {
+  background: #34495e;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+}
