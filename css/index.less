@@ -8,24 +8,38 @@ body, html {
     height: 100%;
     min-width: 500px;
     overflow: hidden;
-    background: linear-gradient(45deg, #34495e, #2c3e50);
-    // background-color: #000;
+    position: relative;
+    background: linear-gradient(45deg, #2f3542, #2c3e50);
 }
+// .background {
+//     z-index: 0;
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     width: 120%;
+//     height: 120%;
+//     background: linear-gradient(45deg, #16a085, #1abc9c, #27ae60, #2ecc71, #f1c40f, #f39c12, #e67e22, #d35400);
+//     filter: blur(50px;)
+// }
 @keyframes editing {
     0%, 100% {
         transform: rotate(5deg);
     }
-    15% {
+    50% {
         transform: rotate(-5deg);
     }
 }
 .content {
+    position: relative;
     padding-top: 50px;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
+    
     .logo {
         width: 400px;
         height: auto;
@@ -49,7 +63,10 @@ body, html {
             border: 2px solid #3498db;
             border-right: none;
             outline: none;
-
+            transition: background-color .3s;
+            &:hover {
+                background-color: #3498db33;
+            }
         }
         .btn {
             border-radius: 0 @h / 2 @h / 2 0;
@@ -61,6 +78,10 @@ body, html {
             cursor: pointer;
             position: relative;
             font-size: 1.3em;
+            transition: background-color .3s;
+            &:hover {
+                background-color: #3498db33;
+            }
             .change {
                 display: block;
                 width: 10px;
@@ -142,9 +163,12 @@ body, html {
             position: relative;
             &:hover {
                 border-width: 8px;
-                span {
+                .tag-name {
                     opacity: 1;
                     font-size: 2em;
+                }
+                .no-img {
+                    font-size: 1.2em;
                 }
                 img {
                     opacity: 0;
@@ -174,7 +198,7 @@ body, html {
                     background-color: #3498db;
                 }
             }
-            span {
+            .tag-name {
                 position: absolute;
                 color: #3498db;
                 top: 50%;
@@ -189,6 +213,15 @@ body, html {
                 opacity: 0;
                 font-size: 3em;
                 transition: .3s;
+            }
+            .no-img {
+                position: absolute;
+                color: #3498db;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1.5em;
+                transition: font-size .3s;
             }
             img {
                 position: absolute;
@@ -232,6 +265,7 @@ body, html {
                 width: 300px;
                 height: 40px;
                 outline: none;
+                text-indent: 2em;
             }
             td {
                 padding: 20px 0;

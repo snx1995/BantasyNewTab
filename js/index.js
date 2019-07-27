@@ -195,22 +195,29 @@
         img.src = tag.href + "/favicon.ico";
 
         img.onerror = () => {
-            img.src = "../img/1200x630wa.png";
+            img.remove();
+            span.className = "no-img";
         }
 
         const span = document.createElement("span");
+        span.className = "tag-name";
         span.innerText = tag.name;
 
-        let start;
+        let timer;
+        let flag = false;
 
         a.addEventListener("mousedown", event => {
-            start = new Date().getTime();
+            timer = setTimeout(() => {
+                tags.classList.add("editing");
+                flag = true;
+            }, pageVar.editTriggerDelay);
         });
 
         a.addEventListener("mouseup", event => {
-            const dur = new Date().getTime() - start;
-
-            if (tags.matches(".editing")) {
+            if (flag) {
+                flag = false;
+            } else if (tags.matches(".editing")) {
+                clearTimeout(timer);                
                 const preName = span.innerText;
                 const preUrl = a.getAttribute("data-href");
                 const dialog = new Dialog({
@@ -236,10 +243,8 @@
                     }
                 })
                 dialog.show();
-            } else if (dur > pageVar.editTriggerDelay) {
-                tags.classList.add("editing");
-                return false;
             } else {
+                clearTimeout(timer);
                 window.location = a.getAttribute("data-href");
             }
         })
