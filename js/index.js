@@ -28,6 +28,7 @@
             const {
                 title, 
                 destroyOnClose = true, // TODO
+                enterTriggerConfirm = true,
                 name = "",
                 url = "",
                 onconfirm = () => this.hide()
@@ -75,7 +76,14 @@
             overlay.addEventListener("click", event => this.hide());
             cancel.addEventListener("click", event => this.hide());
             modal.onclick = event => event.stopPropagation();
-
+            
+            if (enterTriggerConfirm) {
+                modal.addEventListener("keydown", event => {
+                    if (event.keyCode === 13) {
+                        onconfirm(nameInput.value, urlInput.value);
+                    }
+                })
+            }
             document.body.append(modal);
         }
 

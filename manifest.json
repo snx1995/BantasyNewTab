@@ -5,7 +5,8 @@
     "description": "bantasy new tab",
 
     "permissions": [
-        "storage"
+        "storage",
+        "tabs"
     ],
     "chrome_url_overrides": {
         "newtab": "index.html"
@@ -19,6 +20,13 @@
         "32": "logo.png",
         "64": "logo.png",
         "128": "logo.png"
-    }
-
+    },
+    "browser_action": {
+        "default_icon": {
+          "16": "logo.png",
+          "24": "logo.png",
+          "32": "logo.png"
+        },
+        "default_popup": "popup.html"
+      }
 }
