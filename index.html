@@ -5,30 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>新标签页</title>
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/index.css?asdqweasdsa">
 </head>
 <body>
-    <!-- <div class="background"></div> -->
     <div class="content">
-        <img src="./img/bantasy-banner.png" alt="" class="logo">
-        <div class="search">
-            <input type="text">
-            <div class="btn">
-                <label for="showSelect" class="change"></label>
-                <span>google</span>
-                <input type="checkbox" id="showSelect">
-                <ul>
-                    <li>google</li>
-                    <li>baidu</li>
-                    <li>bing</li>
-                </ul>
+        <input type="radio" checked name="slide" id="s1">
+        <input type="radio" name="slide" id="s2">
+        <input type="radio" name="slide" id="s3">
+        <div class="sliders">
+            <div class="slider index">
+                <img src="./img/bantasy-banner.png" alt="" class="logo">
+                <div class="search">
+                    <input type="text">
+                    <div class="btn">
+                        <label for="showSelect" class="change"></label>
+                        <span>google</span>
+                        <input type="checkbox" id="showSelect">
+                        <ul>
+                            <li>google</li>
+                            <li>baidu</li>
+                            <li>bing</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tags">
+                    <div class="tag add">
+                    </div>
+                </div>
+            </div>
+            <div class="slider">
+                <h1>s2</h1>
+            </div>
+            <div class="slider">
+                <h1>s3</h1>
             </div>
         </div>
-        <div class="tags">
-            <div class="tag add">
-                
-            </div>
-        </div>
+        
+    </div>
+    <div class="indicator">
+        <div class="tab tab1"><label for="s1">首页</label></div>
+        <div class="tab tab2"><label for="s2">工作台</label></div>
+        <div class="tab tab3"><label for="s3">待定</label></div>
     </div>
     <script src="./js/index.js"></script>
 </body>

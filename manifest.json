@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "bantasy new tab",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "bantasy new tab",
 
     "permissions": [
