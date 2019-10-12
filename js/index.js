@@ -32,7 +32,7 @@
                 name = "",
                 url = "",
                 onconfirm = () => this.hide()
-            } = option;
+            } = option;            
 
             if (!title || typeof onconfirm != "function") throw new Error("无效的标题或onconfirm监听器");
             const modal = document.createElement("div");
@@ -45,19 +45,28 @@
             <div class="modal-dialog">
                 <h2>${title}</h2>
                 <table>
-                    <tr>
+                    <tr class="single">
                         <td>名称：</td>
                         <td><input type="text" class="name-input" value="${name}"></td>
                     </tr>
-                    <tr>
+                    <tr class="single">
                         <td>地址：</td>
                         <td><input type="text" class="url-input" value="${url}"></td>
                     </tr>
+                    <tr class="multiple">
+                        <td>内容：</td>
+                        <td>
+                            <span class="promotion">format: [{"name": "xxx", "url": "xxx"}, {...] </span>
+                            <textarea class="multi"></textarea>
+                        </td>
+                    </tr>
                     <tr>
-                        <td colspan="2">
+                        <td></td>
+                        <td>
                             <div class="btn-group">
-                                <div class="btn confirm">确认</div>
                                 <div class="btn cancel">取消</div>
+                                <div class="btn multi-import">批量导入</div>
+                                <div class="btn confirm">确认</div>
                             </div>
                         </td>
                     </tr>
@@ -65,12 +74,50 @@
             </div>`
             const overlay = modal.querySelector(".overlay");
             const urlInput = modal.querySelector(".url-input");
-            const nameInput = modal.querySelector(".name-input");      
+            const nameInput = modal.querySelector(".name-input");   
+            const multiTextarea = modal.querySelector(".multi");
+
             const confirm = modal.querySelector(".confirm");
             const cancel = modal.querySelector(".cancel");
+            const multiImport = modal.querySelector(".multi-import");
+            const single = modal.querySelectorAll('.single');
+            const multiple = modal.querySelector('.multiple');
+            let showMultiple = false;
+            this.data = {
+                get showMultiple() {
+                    return showMultiple;
+                },
+                set showMultiple(val) {
+                    showMultiple = val;
+                    if (val) {
+                        single.forEach(e => {
+                            e.style.display = 'none';
+                        })
+                        multiple.style.display = 'table-row';
+                    } else {
+                        single.forEach(e => {
+                            e.style.display = 'table-row';
+                        })
+                        multiple.style.display = 'none';
+                    }
+                }
+            };
+
+            multiImport.addEventListener('click', () => {
+                this.data.showMultiple = !this.data.showMultiple;
+            })
 
             confirm.addEventListener("click", event => {
-                onconfirm(nameInput.value, urlInput.value);
+                if (this.data.showMultiple) {
+                    try {
+                        console.log(multiTextarea.value);
+                        const array = JSON.parse(multiTextarea.value);
+                        if (!(array instanceof Array)) throw new Error();
+                        onconfirm(true, null, null, array);
+                    } catch (err) {
+                        alert("格式错误！");
+                    }
+                } else onconfirm(false, nameInput.value, urlInput.value);
             });
 
             overlay.addEventListener("click", event => this.hide());
@@ -79,8 +126,8 @@
             
             if (enterTriggerConfirm) {
                 modal.addEventListener("keydown", event => {
-                    if (event.keyCode === 13) {
-                        onconfirm(nameInput.value, urlInput.value);
+                    if (!this.data.showMultiple && event.keyCode === 13) {
+                        onconfirm(false, nameInput.value, urlInput.value);
                     }
                 })
             }
@@ -110,8 +157,28 @@
     const addDialog = new Dialog({
         title: "添加新的标签",
         destroyOnClose: false,
-        onconfirm(name, href) {
-            if (name && href) {
+        onconfirm(multi, name, href, array) {
+            if (multi) {
+                let count = 0;
+                array.forEach(e => {
+                    if (vm[e.url]) count ++;
+                    else {
+                        const tag = {
+                            name: e.name,
+                            href: e.url
+                        }
+                        pageVar.tags.push(tag);
+                        const tagv = newTag(tag);
+                        add.before(tagv);
+                        vm[e.url] = tagv;
+                    }
+                })
+                chrome.storage.sync.set({tags: pageVar.tags});
+                if (count > 0) {
+                    alert(`${count} 地址已存在，添加失败.`)
+                }
+                addDialog.hide();
+            } else if (name && href) {
                 if (vm[href]) {
                     alert("地址已存在！");
                     return;
@@ -124,7 +191,6 @@
                 vm[href] = tagv;
                 addDialog.hide();
             } else alert("名称和地址都不能为空！");
-
         }
     })
 
@@ -232,7 +298,7 @@
                     title: `编辑 ${preName}`,
                     name: preName,
                     url: preUrl,
-                    onconfirm(name, url) {
+                    onconfirm(multi, name, url, array) {
                         span.innerText = name;
                         a.setAttribute("data-href", url);
                         img.src = url + "/favicon.ico";

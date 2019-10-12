@@ -291,28 +291,46 @@ html {
 .modal .modal-dialog table td {
   padding: 20px 0;
 }
+.modal .modal-dialog table td .promotion {
+  font-size: .8em;
+  font-style: italic;
+  color: #bdc3c7;
+  background-color: #ecf0f1;
+}
+.modal .modal-dialog table td textarea {
+  display: block;
+  height: 100px;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+}
+.modal .modal-dialog table .multiple {
+  display: none;
+}
 .modal .modal-dialog table .btn-group {
   display: flex;
-  flex-direction: row-reverse;
 }
 .modal .modal-dialog table .btn-group .btn {
   height: 40px;
   width: 80px;
   margin-left: 20px;
   border-radius: 5px;
+  line-height: 40px;
+  text-align: center;
   cursor: pointer;
+  font-size: 12px;
+  border: 1px solid #34495e;
+  color: #34495e;
 }
 .modal .modal-dialog table .btn-group .btn.confirm {
   background: #3498db;
   color: #fff;
-  line-height: 40px;
-  text-align: center;
+  border: none;
 }
 .modal .modal-dialog table .btn-group .btn.cancel {
   background: #34495e;
   color: #fff;
-  line-height: 40px;
-  text-align: center;
+  border: none;
 }
 .indicator {
   box-sizing: content-box;

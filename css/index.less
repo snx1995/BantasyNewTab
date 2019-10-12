@@ -287,28 +287,46 @@ body, html {
             }
             td {
                 padding: 20px 0;
+                .promotion {
+                    font-size: .8em;
+                    font-style: italic;
+                    color: #bdc3c7;
+                    background-color: #ecf0f1;
+                }
+                textarea {
+                    display: block;
+                    height: 100px;
+                    width: 100%;
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+            .multiple {
+                display: none;
             }
             .btn-group {
                 display: flex;
-                flex-direction: row-reverse;
                 .btn {
                     @h: 40px;
                     height: @h;
                     width: 80px;
                     margin-left: 20px;
                     border-radius: 5px;
+                    line-height: @h;
+                    text-align: center;
                     cursor: pointer;
+                    font-size: 12px;
+                    border: 1px solid #34495e;
+                    color: #34495e;
                     &.confirm {
                         background: #3498db;
                         color: #fff;
-                        line-height: @h;
-                        text-align: center;
+                        border: none;
                     }
                     &.cancel {
                         background: #34495e;
                         color: #fff;
-                        line-height: @h;
-                        text-align: center;
+                        border: none;
                     }
                 }
             }
